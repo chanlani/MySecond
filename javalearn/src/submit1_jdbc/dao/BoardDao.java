@@ -28,14 +28,14 @@ public class BoardDao {
 	public ArrayList<Board> boardList(Connection conn) throws SQLException{
 		
 		StringBuffer query = new StringBuffer();
-		query.append("SELECT     		 	  	    ");
-		query.append("      post_no   as no	   		");
-		query.append("  ,board_author as author		");
-		query.append(" , post_title   as title		");		
-		query.append(" , post_content  as content	");		
-		query.append(" , post_date  as date			");		
-		query.append("FROM				 	    	");
-		query.append("			   submit_board 	");
+		query.append("SELECT     		 	  	");
+		query.append("     post_no   	   		");
+		query.append("	,  board_author 		");
+		query.append("  ,  post_title  			");		
+		query.append("  ,  post_content  		");		
+		query.append("  ,  post_date			");
+		query.append("FROM			 	    	");
+		query.append("		submit_board	 	");
 		
 		PreparedStatement ps = conn.prepareStatement(query.toString());
 		ResultSet rs = ps.executeQuery();
@@ -45,10 +45,10 @@ public class BoardDao {
 		while(rs.next()) {
 			Board temp = new Board();
 			
-			temp.setNo(rs.getInt("no"));
-			temp.setAuthor(rs.getString("author"));
-			temp.setTitle(rs.getString("title"));
-			temp.setContent(rs.getString("content"));
+			temp.setNo(rs.getInt("post_no"));
+			temp.setAuthor(rs.getString("board_author"));
+			temp.setTitle(rs.getString("post_title"));
+			temp.setContent(rs.getString("post_content"));
 			temp.setPostDate(rs.getString("post_date"));
 			
 			result.add(temp);
@@ -87,4 +87,7 @@ public class BoardDao {
 		
 		return cnt;
 	}
+	
+	
+	
 }

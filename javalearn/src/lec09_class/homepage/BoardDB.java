@@ -14,7 +14,7 @@ public class BoardDB {
 	
 	private ArrayList<Board> boardList = new ArrayList<Board>();
 	
-	// 글쓰기
+	 //글쓰기
 	public void addBoard(Board board) {
 		boardList.add(board);
 	}

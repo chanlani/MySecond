@@ -65,7 +65,7 @@ public class LoginDao {
 		PreparedStatement ps = conn.prepareStatement(query.toString());
 		
 		int idx = 1;
-		ps.setString(idx++, login.getId());			// idx는 ?의 순서를 알려줌. 
+		ps.setString(idx++, login.getId());			// idx는 ?의 순서 1이면 첫번째 ?. 
 		ps.setString(idx++, login.getPw());
 		
 		int cnt = ps.executeUpdate();
@@ -90,7 +90,7 @@ public class LoginDao {
 			query.append("FROM					");
 			query.append(" submit_login			");
 			query.append("WHERE	1=1				");
-			query.append("	AND dev_id = ?		");
+			query.append("	AND login_id = ?	");
 
 			PreparedStatement ps = conn.prepareStatement(query.toString());
 			ps.setString(1, id);
@@ -111,4 +111,62 @@ public class LoginDao {
 			
 			return temp;
 		}
+		
+		
+		// 회원가입
+		public int registLog(Connection conn, String id, String pw) throws SQLException {
+			
+			StringBuffer query = new StringBuffer();
+			
+			query.append("INSERT INTO				");
+			query.append("			submit_login	");
+			query.append("VALUES (					");
+			query.append("		  ?					");
+			query.append("		, ?					");
+			query.append("		)					");
+			
+			PreparedStatement ps = conn.prepareStatement(query.toString());
+			
+			Login temp = new Login(id, pw);
+			
+			int idx = 1;
+			ps.setString(idx++, temp.getId());
+			ps.setString(idx++, temp.getPw());
+			
+			int cnt = ps.executeUpdate();
+			
+			if(ps != null)ps.close();
+			
+			return cnt;
+			
+		}
+
+		
+		// 회원 정보 업데이트
+		public int saveInfo(Connection conn, Login log) throws SQLException {
+			
+			StringBuffer query = new StringBuffer();
+			
+			query.append("UPDATE    				");
+			query.append("			submit_login	");
+			query.append("SET 						");
+			query.append("	  login_id = ? 			");
+			query.append("	 ,login_pw = ? 			");
+			query.append("WHERE		1=1				");
+			query.append("	AND	login_id = ?		");
+
+			PreparedStatement ps = conn.prepareStatement(query.toString());
+			
+			int idx =1;
+			
+			ps.setString(idx++, log.getId());
+			ps.setString(idx++, log.getPw());
+			
+			int cnt = ps.executeUpdate();
+			if(ps != null) ps.close();
+			return cnt;
+		}
+		
+		
+
 }

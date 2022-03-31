@@ -27,7 +27,7 @@ public class BoardService {
 	}
 	
 	// 게시글목록 조회(SELECT)
-	public ArrayList<Board> boardList(){		// <Student>에 빨간줄뜨면 14강의 student를 임포트함.
+	public ArrayList<Board> boardList(){		
 		Connection conn = cp.getConnection();
 		
 		try {
@@ -72,4 +72,49 @@ public class BoardService {
 			return 0;		// try 안에서만 리턴값 넣으면 insertBoard함수가 에러가 뜸.
 		}
 	
+		
+		// 파라미터 id에 대한 Developer 데이터 리턴
+		public Login getLog(String id) {
+			Connection conn = cp.getConnection();
+			
+			try {
+				return dao2.getLog(conn, id);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				if(conn != null) cp.releaseConnection(conn);
+			}
+			
+			return new Login();
+		}
+		// 회원가입
+		public int registLog(String id, String pw) {
+			Connection conn = cp.getConnection();
+			
+			try {
+				return dao2.registLog(conn, id, pw);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				if(conn != null) cp.releaseConnection(conn);
+			}
+			
+			return 0;
+		}
+		
+		// 회원 정보 업데이트
+		public int saveInfo(Login log) {
+			Connection conn = cp.getConnection();
+			
+			try {
+				return dao2.saveInfo(conn, log);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				if(conn != null) cp.releaseConnection(conn);
+			}
+			
+			return 0;
+		}
+		
 }
